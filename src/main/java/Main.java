@@ -22,7 +22,7 @@ public class Main {
 
         launcher.addProcessor(new FieldProcessor());
         launcher.addProcessor(new AssignmentProcessor());
-//        launcher.addProcessor(new ButtonProcessor());
+        launcher.addProcessor(new ButtonProcessor());
         launcher.run();
 
     }
