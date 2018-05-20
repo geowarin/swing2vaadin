@@ -3,7 +3,10 @@ package com.geowarin;
 import com.geowarin.test.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import spoon.reflect.code.CtExpression;
+import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtStatement;
+import spoon.reflect.code.CtVariableRead;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
@@ -35,5 +38,32 @@ class TemplateTest {
         method.getBody().insertBegin(injectedCode);
 
         Assertions.assertEquals(TestUtils.getResourceText("./template/OutTemplate.java"), c.toString());
+    }
+
+    @Test
+    void testAddClickTemplate() {
+
+        Factory factory = TestUtils.createTestFactory(
+                asList("./buttonTemplate/ButtonTemplate.java"),
+                asList("./src/main/java/com/geowarin/AddClickTemplate.java")
+        );
+
+        CtClass<?> c = factory.Class().get("template.ButtonTemplate");
+        CtMethod<?> method = c.getMethodsByName("method").get(0);
+        CtInvocation statement = method.getBody().getStatement(1);
+
+        CtVariableRead target = (CtVariableRead) statement.getTarget();
+        AddClickTemplate t = new AddClickTemplate();
+//        CtParameter<?> param = method.getParameters().get(0);
+        t.setVariable(target);
+
+        // getting the final AST
+        CtStatement injectedCode = t.apply(null);
+
+        // adds the bound check at the beginning of a method
+//        method.getBody().insertBegin(injectedCode);
+        statement.replace(injectedCode);
+
+        Assertions.assertEquals(TestUtils.getResourceText("./buttonTemplate/OutButtonTemplate.java"), c.toString());
     }
 }

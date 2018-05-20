@@ -1,3 +1,5 @@
+package com.geowarin;
+
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtConstructorCall;

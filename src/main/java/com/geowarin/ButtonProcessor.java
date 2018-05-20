@@ -1,12 +1,10 @@
+package com.geowarin;
+
 import spoon.processing.AbstractProcessor;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtStatement;
-import spoon.reflect.declaration.CtClass;
-import spoon.reflect.declaration.CtField;
-import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtExecutableReference;
-import spoon.reflect.reference.CtTypeReference;
 
 public class ButtonProcessor extends AbstractProcessor<CtInvocation> {
     @Override

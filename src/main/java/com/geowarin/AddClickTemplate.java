@@ -1,3 +1,5 @@
+package com.geowarin;
+
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -7,10 +9,8 @@ import spoon.reflect.reference.CtVariableReference;
 import spoon.template.StatementTemplate;
 import spoon.template.TemplateParameter;
 
-import java.util.Collection;
-
 public class AddClickTemplate extends StatementTemplate {
-    TemplateParameter<Button> _but_;
+    public TemplateParameter<Button> _but_;
 
     @Override
     public void statement() {
@@ -26,9 +26,9 @@ public class AddClickTemplate extends StatementTemplate {
      * Sets _col_ to be replaced by a reference to variable (a local variable, a
      * field, a parameter
      */
-    public void setVariable(CtVariable<?> var) {
-        CtVariableRead<Button> va = var.getFactory().Core().createVariableRead();
-        va.setVariable((CtVariableReference<Button>) var.getReference());
-        _but_ = va;
+    public void setVariable(CtVariableRead var) {
+//        CtVariableRead<Button> va = var.getFactory().Core().createVariableRead();
+//        va.setVariable((CtVariableReference<Button>) var.getReference());
+        _but_ = var;
     }
 }

@@ -1,3 +1,5 @@
+package com.geowarin;
+
 import spoon.Launcher;
 
 public class Main {
