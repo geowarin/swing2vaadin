@@ -1,6 +1,11 @@
 package com.geowarin;
 
 import spoon.Launcher;
+import spoon.compiler.SpoonFile;
+import spoon.compiler.SpoonResourceHelper;
+import spoon.support.compiler.FileSystemFile;
+
+import java.io.File;
 
 public class Main {
 
@@ -14,6 +19,8 @@ public class Main {
         // if true, the pretty-printed code is readable without fully-qualified names
         launcher.getEnvironment().setAutoImports(true); // optional
 
+
+        launcher.addTemplateResource(new FileSystemFile("./src/main/java/com/geowarin/AddClickTemplate.java"));
         // if true, the model can be built even if the dependencies of the analyzed source code are not known or incomplete
         // the classes that are in the current classpath are taken into account
 //        launcher.getEnvironment().setNoClasspath(true); // optional
