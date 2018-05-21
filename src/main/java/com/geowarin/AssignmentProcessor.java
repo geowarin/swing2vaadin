@@ -1,10 +1,8 @@
 package com.geowarin;
 
 import spoon.processing.AbstractProcessor;
-import spoon.reflect.code.CtAssignment;
 import spoon.reflect.code.CtConstructorCall;
 import spoon.reflect.declaration.CtClass;
-import spoon.reflect.declaration.CtField;
 import spoon.reflect.reference.CtTypeReference;
 
 public class AssignmentProcessor extends AbstractProcessor<CtConstructorCall> {

@@ -1,11 +1,7 @@
 package com.geowarin;
 
 import spoon.Launcher;
-import spoon.compiler.SpoonFile;
-import spoon.compiler.SpoonResourceHelper;
 import spoon.support.compiler.FileSystemFile;
-
-import java.io.File;
 
 public class Main {
 

@@ -1,7 +1,6 @@
 package com.geowarin;
 
 import spoon.processing.AbstractProcessor;
-import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtVariableRead;

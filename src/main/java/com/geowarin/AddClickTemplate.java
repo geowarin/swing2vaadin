@@ -4,8 +4,6 @@ import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import spoon.reflect.code.CtVariableRead;
-import spoon.reflect.declaration.CtVariable;
-import spoon.reflect.reference.CtVariableReference;
 import spoon.template.StatementTemplate;
 import spoon.template.TemplateParameter;
 
