@@ -3,14 +3,16 @@ package com.geowarin;
 import com.geowarin.test.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import spoon.reflect.code.CtExpression;
-import spoon.reflect.code.CtInvocation;
-import spoon.reflect.code.CtStatement;
-import spoon.reflect.code.CtVariableRead;
+import spoon.Launcher;
+import spoon.OutputType;
+import spoon.reflect.CtModel;
+import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtParameter;
 import spoon.reflect.factory.Factory;
+import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
+import spoon.reflect.visitor.PrettyPrinter;
 
 import static java.util.Arrays.asList;
 
@@ -41,6 +43,21 @@ class TemplateTest {
     }
 
     @Test
+    void addClick() {
+        Factory factory = TestUtils.createTestFactory(
+                asList("./buttonTemplate/ButtonTemplate.java"),
+                asList("./src/main/java/com/geowarin/AddClickTemplate.java")
+        );
+        Launcher launcher = new Launcher(factory);
+        launcher.addProcessor(new ButtonProcessor());
+
+        launcher.run();
+
+        CtClass<Object> result = factory.Class().get("template.ButtonTemplate");
+        Assertions.assertEquals(TestUtils.getResourceText("./buttonTemplate/OutButtonTemplate.java"), result.toString());
+    }
+
+    @Test
     void testAddClickTemplate() {
 
         Factory factory = TestUtils.createTestFactory(
@@ -53,15 +70,20 @@ class TemplateTest {
         CtInvocation statement = method.getBody().getStatement(1);
 
         CtVariableRead target = (CtVariableRead) statement.getTarget();
-        AddClickTemplate t = new AddClickTemplate();
+//        CtBlock<?> body = statement.getExecutable().getExecutableDeclaration().getBody();
+        // FIXME: ugly
+        CtBlock<?> body = (CtBlock<?>) statement.getElements(element -> element instanceof CtBlock).get(1);
+
+        AddClickTemplate t = new AddClickTemplate(target, body);
 //        CtParameter<?> param = method.getParameters().get(0);
-        t.setVariable(target);
 
         // getting the final AST
-        CtStatement injectedCode = t.apply(null);
+        CtInvocation injectedCode = (CtInvocation) t.apply(null);
+//        injectedCode.setB
 
         // adds the bound check at the beginning of a method
 //        method.getBody().insertBegin(injectedCode);
+//        injectedCode.getExecutable().set
         statement.replace(injectedCode);
 
         Assertions.assertEquals(TestUtils.getResourceText("./buttonTemplate/OutButtonTemplate.java"), c.toString());

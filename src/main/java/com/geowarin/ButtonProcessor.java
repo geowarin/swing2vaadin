@@ -1,6 +1,7 @@
 package com.geowarin;
 
 import spoon.processing.AbstractProcessor;
+import spoon.reflect.code.CtBlock;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.code.CtStatement;
 import spoon.reflect.code.CtVariableRead;
@@ -15,9 +16,10 @@ public class ButtonProcessor extends AbstractProcessor<CtInvocation> {
                 && executable.getSimpleName().equals("addActionListener")) {
 
 
-            AddClickTemplate addClickTemplate = new AddClickTemplate();
-            CtVariableRead target1 = (CtVariableRead) element.getTarget();
-            addClickTemplate.setVariable(target1);
+            CtVariableRead button = (CtVariableRead) element.getTarget();
+//            CtBlock body = element.getExecutable().getExecutableDeclaration().getBody();
+            CtBlock body = (CtBlock<?>) element.getElements(el -> el instanceof CtBlock).get(1);
+            AddClickTemplate addClickTemplate = new AddClickTemplate(button, body);
 
             CtStatement statement = addClickTemplate.apply(null);
             element.replace(statement);

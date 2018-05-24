@@ -1,8 +1,8 @@
 package com.geowarin;
 
 import spoon.Launcher;
-import spoon.OutputType;
-import spoon.support.DefaultOutputDestinationHandler;
+import spoon.reflect.declaration.CtNamedElement;
+import spoon.support.JavaOutputProcessor;
 import spoon.support.compiler.FileSystemFile;
 import spoon.support.compiler.FileSystemFolder;
 
@@ -22,6 +22,16 @@ public class Main {
         launcher.getEnvironment().setAutoImports(true);
         launcher.getEnvironment().setCopyResources(false);
         launcher.setSourceOutputDirectory(outputDir);
+//        launcher.getEnvironment().setSourceOutputDirectory(outputDir);
+
+        JavaOutputProcessor outputProcessor = new JavaOutputProcessor(launcher.createPrettyPrinter()) {
+            public boolean isToBeProcessed(CtNamedElement candidate) {
+//                System.out.println(candidate.getSimpleName());
+                return candidate.getSimpleName().equals("Main");
+            }
+        };
+        outputProcessor.setFactory(launcher.getFactory());
+        launcher.getEnvironment().setDefaultFileGenerator(outputProcessor);
 
 //        DefaultOutputDestinationHandler outputDestinationHandler =
 //                new DefaultOutputDestinationHandler(outputDir, launcher.getEnvironment());

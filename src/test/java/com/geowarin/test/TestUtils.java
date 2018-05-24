@@ -1,6 +1,7 @@
 package com.geowarin.test;
 
 import spoon.Launcher;
+import spoon.OutputType;
 import spoon.compiler.SpoonResource;
 import spoon.reflect.factory.Factory;
 
@@ -21,6 +22,7 @@ public class TestUtils {
     public static Factory createTestFactory(List<String> inputFiles, List<String> templateFiles) {
         Launcher spoon = new Launcher();
         spoon.getEnvironment().setAutoImports(true); // optional
+        spoon.getEnvironment().setOutputType(OutputType.NO_OUTPUT); // optional
 //            spoon.getEnvironment().setNoClasspath(true); // optional
 
         Factory factory = spoon.createFactory();

@@ -10,8 +10,8 @@ class ButtonTemplate {
         JButton jButton = new JButton();
         jButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("toto");
+            public void actionPerformed(ActionEvent evt) {
+                System.out.println("toto" + evt);
             }
         });
     }
